@@ -25,6 +25,3 @@ export default {
         this.page = 1;
     }
 };
-
-
-// Your API key: 22328016-b5b8589f64a6d5a0340d8aa33

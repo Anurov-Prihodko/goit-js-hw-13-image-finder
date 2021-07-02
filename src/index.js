@@ -1,6 +1,6 @@
 'use strict';
 import './sass/main.scss';
-// import API from './js/fetchImages.js';
+import API from './js/apiService';
 import imageCard from './templates/imageCard.hbs';
 import imagesList from './templates/imagesList.hbs';
 
