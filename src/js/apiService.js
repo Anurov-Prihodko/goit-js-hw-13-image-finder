@@ -25,3 +25,4 @@ export default {
         this.page = 1;
     }
 };
+
