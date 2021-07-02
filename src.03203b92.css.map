@@ -1,0 +1,1 @@
+{"version":3,"sources":["sass/_image.scss"],"names":[],"mappings":"AAAA,GACE,qBAGF,aACE,YAAA,CACA,kBAAA,CACA,sBAAA,CACA","file":"src.03203b92.css","sourceRoot":"../src","sourcesContent":["li {\n  text-decoration: none;\n}\n\n.images_list {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n}\n"]}
