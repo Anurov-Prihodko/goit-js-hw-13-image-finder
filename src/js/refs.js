@@ -1,10 +1,11 @@
 'use strict';
-const inputText = document.querySelector('#search-form > input[type=text]');
-const btnSearchImg = document.querySelector('.search_btn');
+const loadMoreImgBtn = document.querySelector('.load');
+const searchImgForm = document.querySelector('#search-form');
 const galleryImg = document.querySelector('.gallery');
 
 export default {
-    inputText,
-    btnSearchImg,
+    loadMoreImgBtn,
+    searchImgForm,
     galleryImg
 }
+

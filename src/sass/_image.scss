@@ -1,11 +1,93 @@
+html {
+  box-sizing: border-box;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+}
+
 li,
 img {
   text-decoration: none;
 }
 
-.images_list {
+.photo-card {
+  max-width: 370px;
+  width: 100%;
+  margin: 15px;
+  flex-basis: calc((100% * 3 - 30px) / 3);
+}
+
+.gallery {
+  // margin: -15px;
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.gallery img {
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  background-color: rgb(236, 236, 236);
+}
+
+.stats-item {
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  color: orange;
+}
+
+.material-icons {
+  display: flex;
+  justify-content: space-around;
+  color: #212121;
+  width: 25px;
+}
+
+.load {
+  display: none;
+  // background-color: orange;
+  // border: none;
+  // color: white;
+  // padding: 12px 28px;
+  // text-align: center;
+  // text-decoration: none;
+  // display: inline-block;
+  // font-size: 16px;
+  // border-radius: 5px;
+  // font-weight: 700;
+  // margin-bottom: 20px;
+}
+
+.pug {
+  display: flex;
   align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.onLoad {
+}
+
+.search-form {
+  margin-top: 20px;
+  margin-left: 20px;
 }
