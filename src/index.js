@@ -3,7 +3,7 @@ import './sass/main.scss';
 import API from './js/apiService';
 import refs from './js/refs';
 import imageCard from './templates/imageCard.hbs';
-import { success, error } from '@pnotify/core';
+import { alert, success, error } from '@pnotify/core';
 import '@pnotify/core/dist/BrightTheme.css';
 
 refs.searchImgForm.addEventListener('submit', onImgSearchInput);
@@ -14,33 +14,47 @@ function onImgSearchInput(e) {
     clearImgContainer();
 
     const input = e.currentTarget.elements.query;
+    const value = input.value.trim().toLowerCase()
 
     API.defaultPage();
-    API.request = input.value.trim().toLowerCase();  
+    API.request = value;
 
-    API.fetchImages(input.value)
+    if (!value) {
+        notCorrectRequestAlert();
+        return
+    }             
+    API.fetchImages()
         .then(hits => {
-            const markup = imageCard(hits);
-            renderImages(markup)
+            if (hits.length === 0) {
+                onFetchError();
+            } else if (hits.length < 12) {
+                const markup = imageCard(hits);
+                renderImages(markup);
+                refs.loadMoreImgBtn.style.display = 'none';
+                noMoreImgRequestAlert();
+            } else if (value) {
+                const markup = imageCard(hits);
+                renderImages(markup);
+                onSuccessfulRequest();
+                refs.loadMoreImgBtn.style.backgroundColor = 'orange';
+                refs.loadMoreImgBtn.style.display = 'inline-block';
+                refs.loadMoreImgBtn.style.color = 'white';
+                refs.loadMoreImgBtn.style.border = 'none';
+                refs.loadMoreImgBtn.style.textAlign = 'center';
+                refs.loadMoreImgBtn.style.padding = '12px 28px';
+                refs.loadMoreImgBtn.style.fontSize = '16px';
+                refs.loadMoreImgBtn.style.textDecoration = 'none';
+                refs.loadMoreImgBtn.style.fontWeight = '700';
+                refs.loadMoreImgBtn.style.borderRadius = '3px';
+                refs.loadMoreImgBtn.style.marginBottom = '20px';
+            } 
         })
         .catch(err => {
             console.log(err);
-            onFetchError();
+            onFetchError();         
     });
     input.value = '';
-    refs.loadMoreImgBtn.style.display = 'inline-block';
-    refs.loadMoreImgBtn.style.backgroundColor = 'orange';
-    refs.loadMoreImgBtn.style.border = 'none';
-    refs.loadMoreImgBtn.style.color = 'white';
-    refs.loadMoreImgBtn.style.padding = '12px 28px';
-    refs.loadMoreImgBtn.style.textAlign = 'center';
-    refs.loadMoreImgBtn.style.textDecoration = 'none';
-    refs.loadMoreImgBtn.style.fontSize = '16px';
-    refs.loadMoreImgBtn.style.borderRadius = '5px';
-    refs.loadMoreImgBtn.style.fontWeight = '700';
-    refs.loadMoreImgBtn.style.marginBottom = '20px';
-    onSuccessfulRequest();
-}
+}    
 
 function onLoadMoreImg() {
     API.plusPage();
@@ -49,7 +63,7 @@ function onLoadMoreImg() {
         .then(hits => {
             const markup = imageCard(hits);
             renderImages(markup)
-            const element = refs.loadMoreImgBtn;
+            const element = refs.loadMoreImgBtn;            
         element.scrollIntoView({
             behavior: 'smooth',
             block: 'end',
@@ -78,6 +92,18 @@ function onSuccessfulRequest() {
 function onFetchError() {
     error({
         text: "Something went wrong! Please please try again."
+    });
+}
+
+function notCorrectRequestAlert() {
+    alert({
+        text: "Please enter a correct request!"
+    });
+}
+
+function noMoreImgRequestAlert() {
+    alert({
+        text: "Sorry, there are no more photos for your request!"
     });
 }
 
