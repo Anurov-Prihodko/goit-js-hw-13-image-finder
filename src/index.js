@@ -6,6 +6,10 @@ import imageCard from './templates/imageCard.hbs';
 import { alert, success, error } from '@pnotify/core';
 import '@pnotify/core/dist/BrightTheme.css';
 
+import * as basicLightbox from 'basiclightbox';
+import "basicLightbox/dist/basiclightbox.min.css";
+
+
 refs.searchImgForm.addEventListener('submit', onImgSearchInput);
 refs.loadMoreImgBtn.addEventListener('click', onLoadMoreImg);
 
@@ -26,7 +30,8 @@ function onImgSearchInput(e) {
     API.fetchImages()
         .then(hits => {
             if (hits.length === 0) {
-                onFetchError();
+                refs.loadMoreImgBtn.style.display = 'none';
+                onFetchError();                
             } else if (hits.length < 12) {
                 const markup = imageCard(hits);
                 renderImages(markup);
@@ -47,7 +52,7 @@ function onImgSearchInput(e) {
                 refs.loadMoreImgBtn.style.fontWeight = '700';
                 refs.loadMoreImgBtn.style.borderRadius = '3px';
                 refs.loadMoreImgBtn.style.marginBottom = '20px';
-            } 
+            }            
         })
         .catch(err => {
             console.log(err);
@@ -107,5 +112,9 @@ function noMoreImgRequestAlert() {
     });
 }
 
+const largeImageOnClick = (e) => {
+    basicLightbox.create(`<img src="${e.target.alt}">`).show(e);
+    // console.log(e.target.alt);
+}
 
-
+refs.galleryImg.addEventListener('click', largeImageOnClick);
