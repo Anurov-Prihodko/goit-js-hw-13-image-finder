@@ -116,5 +116,4 @@ const largeImageOnClick = (e) => {
     basicLightbox.create(`<img src="${e.target.alt}">`).show(e);
     // console.log(e.target.alt);
 }
-
 refs.galleryImg.addEventListener('click', largeImageOnClick);
