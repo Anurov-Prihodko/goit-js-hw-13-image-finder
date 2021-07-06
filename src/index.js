@@ -79,7 +79,7 @@ function onLoadMoreImg() {
             console.log(err);
             onFetchError();
         })
-    onSuccessfulRequest();
+    // onSuccessfulRequest();
 };
 
 function renderImages(markupImg) {
