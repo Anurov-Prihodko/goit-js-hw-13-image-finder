@@ -8,7 +8,7 @@ import '@pnotify/core/dist/BrightTheme.css';
 
 import * as basicLightbox from 'basiclightbox';
 // const basicLightbox = require('basiclightbox');
-import "../node_modules/basicLightbox/dist/basiclightbox.min.css";
+// import "../node_modules/basicLightbox/dist/basiclightbox.min.css";
 
 
 
