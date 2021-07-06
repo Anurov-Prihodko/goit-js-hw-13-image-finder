@@ -6,9 +6,10 @@ import imageCard from './templates/imageCard.hbs';
 import { alert, success, error } from '@pnotify/core';
 import '@pnotify/core/dist/BrightTheme.css';
 
-// import * as basicLightbox from 'basiclightbox';
-import "basicLightbox/dist/basiclightbox.min.css";
-const basicLightbox = require('basiclightbox')
+import * as basicLightbox from 'basiclightbox';
+// const basicLightbox = require('basiclightbox');
+import "../node_modules/basicLightbox/dist/basiclightbox.min.css";
+
 
 
 refs.searchImgForm.addEventListener('submit', onImgSearchInput);
