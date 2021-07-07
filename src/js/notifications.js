@@ -10,14 +10,40 @@ import * as PNotifyConfirm from '@pnotify/confirm';
 
 export default {
     onSuccessfulRequest() {
+        // success({
+        //     text: "Congratulations! You found the images.",
+        //     maxTextHeight: null,
+        // });
+
         success({
-            text: "Congratulations! You found the images."
-        });
+            title: 'Congratulations!',
+            text: 'You found the images.',
+            delay: 2500,
+            maxTextHeight: null,
+            modules: new Map([
+                ...defaultModules,
+                [PNotifyCountdown, {
+                }]
+            ])
+        });        
     },
-    
+
     onFetchError() {
+        // error({
+        //     text: "Something went wrong! Please please try again.",
+        //     maxTextHeight: null,
+        // });
+
         error({
-            text: "Something went wrong! Please please try again."
+            title: 'Something went wrong!',
+            text: 'Please please try again.',
+            delay: 2500,
+            maxTextHeight: null,
+            modules: new Map([
+                ...defaultModules,
+                [PNotifyCountdown, {
+                }]
+            ])
         });
     },
 
@@ -26,6 +52,7 @@ export default {
             title: 'No data to search',
             text: 'Please enter a correct request!',
             delay: 2500,
+            maxTextHeight: null,
             modules: new Map([
                 ...defaultModules,
                 [PNotifyCountdown, {
@@ -33,7 +60,7 @@ export default {
             ])
         });
 
-    // notification option
+        // notification option
         // alert({
         //     title: 'No data to search',
         //     text: 'Please enter a correct request!',
@@ -42,8 +69,7 @@ export default {
         //     closer: false,
         //     sticker: false,
         //     destroy: true,
-        //     scrolling: false,
-    
+        //     maxTextHeight: null,
         //     modules: new Map([
         //         ...defaultModules,
         //         [PNotifyConfirm, {
@@ -59,14 +85,27 @@ export default {
 
         // notification option 2
         // alert({
-    //         text: "Please enter a correct request!"
-    //     });
-        },
-    
+        //         text: "Please enter a correct request!"
+        //     });
+    },
+
     noMoreImgRequestAlert() {
-        alert({
-            text: "Sorry, there are no more photos for your request!"
+        info({
+            title: 'Sorry...',
+            text: 'There are no more photos for your request!',
+            delay: 2500,
+            maxTextHeight: null,
+            modules: new Map([
+                ...defaultModules,
+                [PNotifyCountdown, {
+                }]
+            ])
         });
-        }
+
+        // alert({
+        //     text: "Sorry, there are no more photos for your request!",
+        //     maxTextHeight: null,
+        // });
+    }
 
 }
