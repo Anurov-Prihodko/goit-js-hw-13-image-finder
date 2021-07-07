@@ -1,16 +1,10 @@
 'use strict';
 import './sass/main.scss';
 import API from './js/apiService';
+import NOTE from './js/notifications';
 import refs from './js/refs';
 import imageCard from './templates/imageCard.hbs';
-import { alert, success, error } from '@pnotify/core';
-import '@pnotify/core/dist/BrightTheme.css';
-
 import * as basicLightbox from 'basiclightbox';
-// const basicLightbox = require('basiclightbox');
-// import "../node_modules/basicLightbox/dist/basiclightbox.min.css";
-
-
 
 refs.searchImgForm.addEventListener('submit', onImgSearchInput);
 refs.loadMoreImgBtn.addEventListener('click', onLoadMoreImg);
@@ -26,23 +20,23 @@ function onImgSearchInput(e) {
     API.request = value;
 
     if (!value) {
-        notCorrectRequestAlert();
+        NOTE.notCorrectRequestAlert();
         return
     }             
     API.fetchImages()
         .then(hits => {
             if (hits.length === 0) {
                 refs.loadMoreImgBtn.style.display = 'none';
-                onFetchError();                
+                NOTE.onFetchError();                
             } else if (hits.length < 12) {
                 const markup = imageCard(hits);
                 renderImages(markup);
                 refs.loadMoreImgBtn.style.display = 'none';
-                noMoreImgRequestAlert();
+                NOTE.noMoreImgRequestAlert();
             } else if (value) {
                 const markup = imageCard(hits);
                 renderImages(markup);
-                onSuccessfulRequest();
+                NOTE.onSuccessfulRequest();
                 refs.loadMoreImgBtn.style.backgroundColor = 'orange';
                 refs.loadMoreImgBtn.style.display = 'inline-block';
                 refs.loadMoreImgBtn.style.color = 'white';
@@ -58,7 +52,7 @@ function onImgSearchInput(e) {
         })
         .catch(err => {
             console.log(err);
-            onFetchError();         
+            NOTE.onFetchError();         
     });
     input.value = '';
 }    
@@ -77,9 +71,9 @@ function onLoadMoreImg() {
         });
         }).catch(err => {
             console.log(err);
-            onFetchError();
+            NOTE.onFetchError();
         })
-    // onSuccessfulRequest();
+    // NOTE.onSuccessfulRequest();
 };
 
 function renderImages(markupImg) {
@@ -90,32 +84,7 @@ function clearImgContainer() {
     refs.galleryImg.innerHTML = '';
 }
 
-function onSuccessfulRequest() {
-    success({
-        text: "Congratulations! You found the images."
-    });
-}
-
-function onFetchError() {
-    error({
-        text: "Something went wrong! Please please try again."
-    });
-}
-
-function notCorrectRequestAlert() {
-    alert({
-        text: "Please enter a correct request!"
-    });
-}
-
-function noMoreImgRequestAlert() {
-    alert({
-        text: "Sorry, there are no more photos for your request!"
-    });
-}
-
 const largeImageOnClick = (e) => {
     basicLightbox.create(`<img src="${e.target.alt}">`).show(e);
-    // console.log(e.target.alt);
 }
 refs.galleryImg.addEventListener('click', largeImageOnClick);
